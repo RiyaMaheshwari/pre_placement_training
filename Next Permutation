@@ -1,20 +1,26 @@
 class Solution {
 public:
-    vector<vector<int>> generate(int numRows) {
-        vector<vector<int>>ans;
-
-        int k=0;
-        while(k<numRows)
+    void nextPermutation(vector<int>& nums) {
+        int ind1=-1, ind2=-1;
+        for(int i=nums.size()-2; i>=0; i--)
         {
-            vector<int> level(k+1,1);
-            
-            for(int i=1; i<k; i++)
+            if(nums[i]<nums[i+1])
             {
-                level[i]=ans[k-1][i]+ans[k-1][i-1];
+                ind1=i;
+                break;
             }
-            k++;
-            ans.push_back(level);
         }
-        return ans;
+
+        for(int i=nums.size()-1; i>=ind1 && ind1!=-1; i--)
+        {
+            if(nums[i]>nums[ind1])
+            {
+                ind2 = i;
+                break;
+            }
+        }
+        if(ind2 != -1)
+        swap(nums[ind1],nums[ind2]);
+        reverse(nums.begin()+ind1+1,nums.end());
     }
 };
