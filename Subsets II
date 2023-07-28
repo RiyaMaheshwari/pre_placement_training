@@ -1,0 +1,32 @@
+class Solution {
+public:
+    map<vector<int>,int> mp;
+    void f(int i, int n, vector<int>& nums, vector<vector<int>>& ans, vector<int>& ds)
+    {
+        if(i>=n)
+        {
+            //mp[ds]++;
+            if(mp.find(ds)==mp.end())
+            {
+                mp[ds]++;
+                ans.push_back(ds);
+            }
+            return;
+        }
+        //cout<<ds.size()<<endl;
+        ds.push_back(nums[i]);
+        f(i+1, n, nums, ans, ds);
+        ds.pop_back();
+        f(i+1, n, nums, ans, ds);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> ds;
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        map<vector<int>, int>mp;
+        f(0, n, nums, ans, ds);
+
+        return ans;
+    }
+};
